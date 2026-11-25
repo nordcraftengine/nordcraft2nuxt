@@ -1,0 +1,697 @@
+{
+  "project": {
+    "name": "Counter Demo",
+    "short_id": "counter_demo",
+    "description": "Small compiler fixture"
+  },
+  "commit": "fixture",
+  "files": {
+    "components": {
+      "HomePage": {
+        "name": "HomePage",
+        "route": {
+          "path": [],
+          "query": {},
+          "info": {
+            "title": {
+              "formula": {
+                "type": "value",
+                "value": "Counter Demo"
+              }
+            },
+            "language": {
+              "formula": {
+                "type": "value",
+                "value": "en"
+              }
+            }
+          },
+          "response": {
+            "status": {
+              "type": "value",
+              "value": 200
+            },
+            "headers": {
+              "x-nc-demo": {
+                "type": "value",
+                "value": "ok"
+              }
+            }
+          }
+        },
+        "nodes": {
+          "root": {
+            "type": "element",
+            "tag": "main",
+            "attrs": {},
+            "style": {
+              "min-height": "100vh",
+              "display": "flex",
+              "flex-direction": "column",
+              "align-items": "center",
+              "justify-content": "center",
+              "background": "var(--page-bg)",
+              "color": "var(--ink)",
+              "row-gap": "24px",
+              "font-family": "Inter, sans-serif"
+            },
+            "events": {},
+            "classes": {},
+            "children": [
+              "title",
+              "counter",
+              "oldLink"
+            ]
+          },
+          "title": {
+            "type": "element",
+            "tag": "h1",
+            "attrs": {},
+            "style": {
+              "font-size": "32px",
+              "margin": "0",
+              "line-height": "1.1"
+            },
+            "events": {},
+            "classes": {},
+            "children": [
+              "titleText"
+            ]
+          },
+          "titleText": {
+            "type": "text",
+            "value": {
+              "type": "value",
+              "value": "Counter Demo"
+            }
+          },
+          "counter": {
+            "type": "component",
+            "name": "Counter",
+            "attrs": {},
+            "events": {},
+            "children": [],
+            "style": {
+              "border": "3px solid rgb(255, 0, 0)"
+            }
+          },
+          "oldLink": {
+            "type": "element",
+            "tag": "a",
+            "attrs": {
+              "href": {
+                "type": "value",
+                "value": "/old"
+              }
+            },
+            "style": {
+              "font-size": "14px",
+              "color": "#2563eb"
+            },
+            "events": {},
+            "classes": {},
+            "children": [
+              "oldLinkText"
+            ]
+          },
+          "oldLinkText": {
+            "type": "text",
+            "value": {
+              "type": "value",
+              "value": "Old home (client redirect)"
+            }
+          }
+        }
+      },
+      "Counter": {
+        "name": "Counter",
+        "attributes": {},
+        "variables": {
+          "count": {
+            "initialValue": {
+              "type": "value",
+              "value": 0
+            }
+          }
+        },
+        "formulas": {},
+        "workflows": {
+          "increment": {
+            "name": "Increment",
+            "parameters": [],
+            "actions": [
+              {
+                "type": "SetVariable",
+                "variable": "count",
+                "data": {
+                  "type": "function",
+                  "name": "@toddle/add",
+                  "arguments": [
+                    {
+                      "name": "0",
+                      "formula": {
+                        "type": "path",
+                        "path": [
+                          "Variables",
+                          "count"
+                        ]
+                      }
+                    },
+                    {
+                      "name": "1",
+                      "formula": {
+                        "type": "value",
+                        "value": 1
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "decrement": {
+            "name": "Decrement",
+            "parameters": [],
+            "actions": [
+              {
+                "type": "Switch",
+                "cases": [
+                  {
+                    "condition": {
+                      "type": "function",
+                      "name": "@toddle/greaterThan",
+                      "arguments": [
+                        {
+                          "name": "0",
+                          "formula": {
+                            "type": "path",
+                            "path": [
+                              "Variables",
+                              "count"
+                            ]
+                          }
+                        },
+                        {
+                          "name": "1",
+                          "formula": {
+                            "type": "value",
+                            "value": 0
+                          }
+                        }
+                      ]
+                    },
+                    "actions": [
+                      {
+                        "type": "SetVariable",
+                        "variable": "count",
+                        "data": {
+                          "type": "function",
+                          "name": "@toddle/minus",
+                          "arguments": [
+                            {
+                              "name": "0",
+                              "formula": {
+                                "type": "path",
+                                "path": [
+                                  "Variables",
+                                  "count"
+                                ]
+                              }
+                            },
+                            {
+                              "name": "1",
+                              "formula": {
+                                "type": "value",
+                                "value": 1
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "nodes": {
+          "root": {
+            "type": "element",
+            "tag": "section",
+            "attrs": {
+              "aria-label": {
+                "type": "value",
+                "value": "Counter"
+              }
+            },
+            "style": {
+              "display": "flex",
+              "flex-direction": "column",
+              "align-items": "center",
+              "row-gap": "16px",
+              "padding-top": "24px",
+              "padding-left": "24px",
+              "padding-right": "24px",
+              "padding-bottom": "24px",
+              "border-radius": "16px",
+              "background": "var(--card-bg)",
+              "border": "1px solid var(--border)"
+            },
+            "events": {},
+            "classes": {},
+            "children": [
+              "countText",
+              "buttons"
+            ]
+          },
+          "countText": {
+            "type": "element",
+            "tag": "p",
+            "attrs": {},
+            "style": {
+              "font-size": "48px",
+              "font-weight": "700",
+              "margin": "0",
+              "min-width": "96px",
+              "text-align": "center"
+            },
+            "events": {},
+            "classes": {},
+            "children": [
+              "countValue"
+            ]
+          },
+          "countValue": {
+            "type": "text",
+            "value": {
+              "type": "path",
+              "path": [
+                "Variables",
+                "count"
+              ]
+            }
+          },
+          "buttons": {
+            "type": "element",
+            "tag": "div",
+            "attrs": {},
+            "style": {
+              "display": "flex",
+              "flex-direction": "row",
+              "column-gap": "12px"
+            },
+            "events": {},
+            "classes": {},
+            "children": [
+              "decrement",
+              "increment"
+            ]
+          },
+          "decrement": {
+            "type": "element",
+            "tag": "button",
+            "attrs": {
+              "type": {
+                "type": "value",
+                "value": "button"
+              }
+            },
+            "style": {
+              "width": "48px",
+              "height": "48px",
+              "font-size": "24px",
+              "border-radius": "999px",
+              "border": "1px solid var(--border)",
+              "background": "var(--button-bg)",
+              "cursor": "pointer"
+            },
+            "events": {
+              "click": {
+                "trigger": "click",
+                "actions": [
+                  {
+                    "type": "TriggerWorkflow",
+                    "workflow": "decrement",
+                    "parameters": null
+                  }
+                ]
+              }
+            },
+            "classes": {},
+            "children": [
+              "decrementText"
+            ]
+          },
+          "decrementText": {
+            "type": "text",
+            "value": {
+              "type": "value",
+              "value": "\u2212"
+            }
+          },
+          "increment": {
+            "type": "element",
+            "tag": "button",
+            "attrs": {
+              "type": {
+                "type": "value",
+                "value": "button"
+              }
+            },
+            "style": {
+              "width": "48px",
+              "height": "48px",
+              "font-size": "24px",
+              "border-radius": "999px",
+              "border": "1px solid var(--border)",
+              "background": "var(--accent)",
+              "color": "#ffffff",
+              "cursor": "pointer",
+              "transform": "rotate(var(--rotation))"
+            },
+            "events": {
+              "click": {
+                "trigger": "click",
+                "actions": [
+                  {
+                    "type": "TriggerWorkflow",
+                    "workflow": "increment",
+                    "parameters": null
+                  }
+                ]
+              }
+            },
+            "classes": {},
+            "children": [
+              "incrementText"
+            ],
+            "variants": [
+              {
+                "hover": true,
+                "style": {
+                  "background": "#1d4ed8"
+                },
+                "customProperties": {
+                  "--rotation": {
+                    "formula": {
+                      "type": "function",
+                      "name": "@toddle/concatenate",
+                      "arguments": [
+                        {
+                          "name": "0",
+                          "formula": {
+                            "type": "value",
+                            "value": "2"
+                          }
+                        },
+                        {
+                          "name": "1",
+                          "formula": {
+                            "type": "value",
+                            "value": "deg"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "focus-visible": true,
+                "style": {
+                  "outline": "1px solid #000000",
+                  "outline-offset": "4px"
+                }
+              }
+            ],
+            "customProperties": {
+              "--rotation": {
+                "formula": {
+                  "type": "value",
+                  "value": "0deg"
+                }
+              }
+            }
+          },
+          "incrementText": {
+            "type": "text",
+            "value": {
+              "type": "value",
+              "value": "+"
+            }
+          }
+        }
+      },
+      "404": {
+        "name": "404",
+        "route": {
+          "path": [
+            {
+              "name": "404",
+              "type": "static"
+            }
+          ],
+          "query": {},
+          "info": {
+            "title": {
+              "formula": {
+                "type": "value",
+                "value": "Not found"
+              }
+            }
+          }
+        },
+        "nodes": {
+          "root": {
+            "type": "element",
+            "tag": "main",
+            "attrs": {},
+            "style": {
+              "min-height": "100vh",
+              "display": "flex",
+              "flex-direction": "column",
+              "align-items": "center",
+              "justify-content": "center",
+              "background": "#f8fafc",
+              "font-family": "Inter, sans-serif"
+            },
+            "events": {},
+            "classes": {},
+            "children": [
+              "title"
+            ]
+          },
+          "title": {
+            "type": "element",
+            "tag": "h1",
+            "attrs": {},
+            "style": {
+              "margin": "0",
+              "font-size": "32px"
+            },
+            "events": {},
+            "classes": {},
+            "children": [
+              "titleText"
+            ]
+          },
+          "titleText": {
+            "type": "text",
+            "value": {
+              "type": "value",
+              "value": "Page not found"
+            }
+          }
+        }
+      }
+    },
+    "themes": {
+      "Default": {
+        "default": "Default",
+        "themes": {
+          "Default": {
+            "order": 0
+          }
+        },
+        "fonts": [
+          {
+            "name": "sans",
+            "family": "Inter",
+            "provider": "google",
+            "type": "sans-serif",
+            "variants": [
+              {
+                "name": "regular",
+                "weight": "400",
+                "italic": false,
+                "url": "https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfMZ1rib2Bg-4.woff2"
+              }
+            ]
+          },
+          {
+            "name": "Gideon Roman",
+            "family": "Gideon Roman",
+            "provider": "google",
+            "type": "display",
+            "variants": [
+              {
+                "name": "regular",
+                "weight": "400",
+                "italic": false,
+                "url": "https://example.com/gideon-roman.woff2"
+              }
+            ]
+          }
+        ],
+        "propertyDefinitions": {
+          "--page-bg": {
+            "syntax": {
+              "type": "primitive",
+              "name": "color"
+            },
+            "inherits": true,
+            "initialValue": "#f8fafc",
+            "values": {
+              "Default": "#f8fafc"
+            }
+          },
+          "--card-bg": {
+            "syntax": {
+              "type": "primitive",
+              "name": "color"
+            },
+            "inherits": true,
+            "initialValue": "#ffffff",
+            "values": {
+              "Default": "#ffffff"
+            }
+          },
+          "--ink": {
+            "syntax": {
+              "type": "primitive",
+              "name": "color"
+            },
+            "inherits": true,
+            "initialValue": "#0f172a",
+            "values": {
+              "Default": "#0f172a"
+            }
+          },
+          "--accent": {
+            "syntax": {
+              "type": "primitive",
+              "name": "color"
+            },
+            "inherits": true,
+            "initialValue": "#2563eb",
+            "values": {
+              "Default": "#2563eb"
+            }
+          },
+          "--border": {
+            "syntax": {
+              "type": "primitive",
+              "name": "color"
+            },
+            "inherits": true,
+            "initialValue": "#e2e8f0",
+            "values": {
+              "Default": "#e2e8f0"
+            }
+          },
+          "--button-bg": {
+            "syntax": {
+              "type": "primitive",
+              "name": "color"
+            },
+            "inherits": true,
+            "initialValue": "#ffffff",
+            "values": {
+              "Default": "#ffffff"
+            }
+          }
+        }
+      }
+    },
+    "routes": {
+      "OldHome": {
+        "type": "redirect",
+        "source": {
+          "path": [
+            {
+              "name": "old",
+              "type": "static"
+            }
+          ],
+          "query": {}
+        },
+        "status": 301,
+        "enabled": {
+          "formula": {
+            "type": "value",
+            "value": true
+          }
+        },
+        "destination": {
+          "url": {
+            "type": "value",
+            "value": "/"
+          },
+          "path": {},
+          "queryParams": {}
+        }
+      },
+      "DynamicRedirect": {
+        "type": "redirect",
+        "source": {
+          "path": [
+            {
+              "name": "item",
+              "type": "static"
+            },
+            {
+              "name": "id",
+              "type": "param"
+            }
+          ],
+          "query": {}
+        },
+        "status": 302,
+        "enabled": {
+          "formula": {
+            "type": "value",
+            "value": true
+          }
+        },
+        "destination": {
+          "url": {
+            "type": "function",
+            "name": "@toddle/concatenate",
+            "arguments": [
+              {
+                "name": "0",
+                "formula": {
+                  "type": "value",
+                  "value": "/items/"
+                }
+              },
+              {
+                "name": "1",
+                "formula": {
+                  "type": "path",
+                  "path": [
+                    "URL parameters",
+                    "id"
+                  ]
+                }
+              }
+            ]
+          },
+          "path": {},
+          "queryParams": {}
+        }
+      }
+    }
+  }
+}

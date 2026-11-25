@@ -1,0 +1,39 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+out
+*.tgz
+
+# Test / coverage output
+coverage
+*.lcov
+*.tsbuildinfo
+
+# Logs
+logs
+*.log
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Caches
+.cache
+.eslintcache
+.nuxt
+.output
+
+# Local Nordcraft exports and generated example apps
+examples/*.json
+examples/*-app/
+examples/e2e-*
+
+# Editor / OS files
+.DS_Store
+.idea
+.vscode
+*.swp
+*~

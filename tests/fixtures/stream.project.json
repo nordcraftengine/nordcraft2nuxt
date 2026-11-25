@@ -1,0 +1,137 @@
+{
+  "project": {
+    "name": "Stream Demo",
+    "short_id": "stream_demo"
+  },
+  "commit": "fixture",
+  "files": {
+    "components": {
+      "StreamPage": {
+        "name": "StreamPage",
+        "route": {
+          "path": [],
+          "query": {},
+          "info": {
+            "title": {
+              "formula": {
+                "type": "value",
+                "value": "Stream Demo"
+              }
+            }
+          }
+        },
+        "nodes": {
+          "root": {
+            "type": "element",
+            "tag": "main",
+            "attrs": {},
+            "style": {
+              "min-height": "100vh",
+              "display": "flex",
+              "align-items": "center",
+              "justify-content": "center",
+              "background": "#f8fafc",
+              "font-family": "Inter, sans-serif"
+            },
+            "events": {},
+            "classes": {},
+            "children": ["demo"]
+          },
+          "demo": {
+            "type": "component",
+            "name": "StreamDemo",
+            "attrs": {},
+            "events": {},
+            "children": []
+          }
+        }
+      },
+      "StreamDemo": {
+        "name": "StreamDemo",
+        "variables": {
+          "message": {
+            "initialValue": {
+              "type": "value",
+              "value": "waiting"
+            }
+          }
+        },
+        "apis": {
+          "Stream": {
+            "version": 2,
+            "name": "Stream",
+            "type": "http",
+            "method": "GET",
+            "url": "http://localhost:4210/stream",
+            "autoFetch": true,
+            "inputs": {},
+            "path": {},
+            "queryParams": {},
+            "headers": {},
+            "client": {
+              "parserMode": "event-stream",
+              "credentials": "omit",
+              "onMessage": {
+                "trigger": "message",
+                "actions": [
+                  {
+                    "type": "SetVariable",
+                    "variable": "message",
+                    "data": {
+                      "type": "path",
+                      "path": ["Event", "message"]
+                    }
+                  }
+                ]
+              }
+            },
+            "server": {
+              "ssr": {
+                "enabled": false
+              },
+              "proxy": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        "nodes": {
+          "root": {
+            "type": "element",
+            "tag": "section",
+            "attrs": {},
+            "style": {
+              "display": "flex",
+              "flex-direction": "column",
+              "row-gap": "12px",
+              "padding-top": "24px",
+              "padding-left": "24px",
+              "padding-right": "24px",
+              "padding-bottom": "24px",
+              "border-radius": "16px",
+              "background": "#ffffff",
+              "border": "1px solid #e2e8f0"
+            },
+            "events": {},
+            "classes": {},
+            "children": ["label", "value"]
+          },
+          "label": {
+            "type": "text",
+            "value": {
+              "type": "value",
+              "value": "Stream message: "
+            }
+          },
+          "value": {
+            "type": "text",
+            "value": {
+              "type": "path",
+              "path": ["Variables", "message"]
+            }
+          }
+        }
+      }
+    }
+  }
+}

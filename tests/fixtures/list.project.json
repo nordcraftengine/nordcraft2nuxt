@@ -1,0 +1,458 @@
+{
+  "project": {
+    "name": "List Demo",
+    "short_id": "list_demo"
+  },
+  "commit": "fixture",
+  "files": {
+    "components": {
+      "ListPage": {
+        "name": "ListPage",
+        "route": {
+          "path": [],
+          "query": {},
+          "info": {
+            "title": {
+              "formula": {
+                "type": "value",
+                "value": "List Demo"
+              }
+            }
+          }
+        },
+        "nodes": {
+          "root": {
+            "type": "element",
+            "tag": "main",
+            "attrs": {},
+            "style": {
+              "min-height": "100vh",
+              "display": "flex",
+              "flex-direction": "column",
+              "align-items": "center",
+              "justify-content": "center",
+              "background": "#f8fafc",
+              "font-family": "Inter, sans-serif"
+            },
+            "events": {},
+            "classes": {},
+            "children": [
+              "todo"
+            ]
+          },
+          "todo": {
+            "type": "component",
+            "name": "TodoList",
+            "attrs": {},
+            "events": {},
+            "children": []
+          }
+        }
+      },
+      "TodoList": {
+        "name": "TodoList",
+        "variables": {
+          "items": {
+            "initialValue": {
+              "type": "array",
+              "arguments": [
+                {
+                  "formula": {
+                    "type": "object",
+                    "arguments": [
+                      {
+                        "name": "id",
+                        "formula": {
+                          "type": "value",
+                          "value": 1
+                        }
+                      },
+                      {
+                        "name": "label",
+                        "formula": {
+                          "type": "value",
+                          "value": "First item"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "formula": {
+                    "type": "object",
+                    "arguments": [
+                      {
+                        "name": "id",
+                        "formula": {
+                          "type": "value",
+                          "value": 2
+                        }
+                      },
+                      {
+                        "name": "label",
+                        "formula": {
+                          "type": "value",
+                          "value": "Second item"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "workflows": {
+          "addItem": {
+            "name": "Add item",
+            "parameters": [],
+            "actions": [
+              {
+                "type": "SetVariable",
+                "variable": "items",
+                "data": {
+                  "type": "function",
+                  "name": "@toddle/append",
+                  "arguments": [
+                    {
+                      "name": "Array",
+                      "formula": {
+                        "type": "path",
+                        "path": [
+                          "Variables",
+                          "items"
+                        ]
+                      }
+                    },
+                    {
+                      "name": "Item",
+                      "formula": {
+                        "type": "object",
+                        "arguments": [
+                          {
+                            "name": "id",
+                            "formula": {
+                              "type": "function",
+                              "name": "@toddle/Id",
+                              "arguments": []
+                            }
+                          },
+                          {
+                            "name": "label",
+                            "formula": {
+                              "type": "value",
+                              "value": "New item"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "removeFirst": {
+            "name": "Remove first",
+            "parameters": [],
+            "actions": [
+              {
+                "type": "SetVariable",
+                "variable": "items",
+                "data": {
+                  "type": "function",
+                  "name": "@toddle/drop",
+                  "arguments": [
+                    {
+                      "name": "Array",
+                      "formula": {
+                        "type": "path",
+                        "path": [
+                          "Variables",
+                          "items"
+                        ]
+                      }
+                    },
+                    {
+                      "name": "Count",
+                      "formula": {
+                        "type": "value",
+                        "value": 1
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "nodes": {
+          "root": {
+            "type": "element",
+            "tag": "section",
+            "attrs": {},
+            "style": {
+              "display": "flex",
+              "flex-direction": "column",
+              "row-gap": "16px",
+              "padding-top": "24px",
+              "padding-left": "24px",
+              "padding-right": "24px",
+              "padding-bottom": "24px",
+              "width": "420px",
+              "border-radius": "16px",
+              "background": "#ffffff",
+              "border": "1px solid #e2e8f0"
+            },
+            "events": {},
+            "classes": {},
+            "children": [
+              "title",
+              "empty",
+              "list",
+              "actions"
+            ]
+          },
+          "title": {
+            "type": "element",
+            "tag": "h1",
+            "attrs": {},
+            "style": {
+              "font-size": "24px",
+              "margin": "0"
+            },
+            "events": {},
+            "classes": {},
+            "children": [
+              "titleText"
+            ]
+          },
+          "titleText": {
+            "type": "text",
+            "value": {
+              "type": "value",
+              "value": "TODO"
+            }
+          },
+          "empty": {
+            "type": "element",
+            "tag": "p",
+            "condition": {
+              "type": "function",
+              "name": "@toddle/equals",
+              "arguments": [
+                {
+                  "name": "0",
+                  "formula": {
+                    "type": "function",
+                    "name": "@toddle/size",
+                    "arguments": [
+                      {
+                        "name": "Collection",
+                        "formula": {
+                          "type": "path",
+                          "path": [
+                            "Variables",
+                            "items"
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "1",
+                  "formula": {
+                    "type": "value",
+                    "value": 0
+                  }
+                }
+              ]
+            },
+            "attrs": {},
+            "style": {
+              "margin": "0",
+              "color": "#64748b"
+            },
+            "events": {},
+            "classes": {},
+            "children": [
+              "emptyText"
+            ]
+          },
+          "emptyText": {
+            "type": "text",
+            "value": {
+              "type": "value",
+              "value": "Nothing to do."
+            }
+          },
+          "list": {
+            "type": "element",
+            "tag": "ul",
+            "attrs": {},
+            "style": {
+              "display": "flex",
+              "flex-direction": "column",
+              "row-gap": "8px",
+              "margin": "0",
+              "padding-left": "0",
+              "list-style": "none"
+            },
+            "events": {},
+            "classes": {},
+            "children": [
+              "listItem"
+            ]
+          },
+          "listItem": {
+            "type": "element",
+            "tag": "li",
+            "attrs": {},
+            "style": {
+              "padding-top": "8px",
+              "padding-left": "12px",
+              "padding-right": "12px",
+              "padding-bottom": "8px",
+              "border-radius": "8px",
+              "background": "#f1f5f9"
+            },
+            "events": {},
+            "classes": {},
+            "children": [
+              "itemText"
+            ],
+            "repeat": {
+              "type": "path",
+              "path": [
+                "Variables",
+                "items"
+              ]
+            },
+            "repeatKey": {
+              "type": "path",
+              "path": [
+                "ListItem",
+                "Item",
+                "id"
+              ]
+            }
+          },
+          "itemText": {
+            "type": "text",
+            "value": {
+              "type": "path",
+              "path": [
+                "ListItem",
+                "Item",
+                "label"
+              ]
+            }
+          },
+          "actions": {
+            "type": "element",
+            "tag": "div",
+            "attrs": {},
+            "style": {
+              "display": "flex",
+              "column-gap": "8px"
+            },
+            "events": {},
+            "classes": {},
+            "children": [
+              "add",
+              "remove"
+            ]
+          },
+          "add": {
+            "type": "element",
+            "tag": "button",
+            "attrs": {
+              "type": {
+                "type": "value",
+                "value": "button"
+              }
+            },
+            "style": {
+              "padding-top": "8px",
+              "padding-left": "12px",
+              "padding-right": "12px",
+              "padding-bottom": "8px",
+              "border-radius": "8px",
+              "border": "none",
+              "background": "#2563eb",
+              "color": "#ffffff",
+              "cursor": "pointer"
+            },
+            "events": {
+              "click": {
+                "trigger": "click",
+                "actions": [
+                  {
+                    "type": "TriggerWorkflow",
+                    "workflow": "addItem",
+                    "parameters": null
+                  }
+                ]
+              }
+            },
+            "classes": {},
+            "children": [
+              "addText"
+            ]
+          },
+          "addText": {
+            "type": "text",
+            "value": {
+              "type": "value",
+              "value": "Add"
+            }
+          },
+          "remove": {
+            "type": "element",
+            "tag": "button",
+            "attrs": {
+              "type": {
+                "type": "value",
+                "value": "button"
+              }
+            },
+            "style": {
+              "padding-top": "8px",
+              "padding-left": "12px",
+              "padding-right": "12px",
+              "padding-bottom": "8px",
+              "border-radius": "8px",
+              "border": "1px solid #cbd5e1",
+              "background": "#ffffff",
+              "cursor": "pointer"
+            },
+            "events": {
+              "click": {
+                "trigger": "click",
+                "actions": [
+                  {
+                    "type": "TriggerWorkflow",
+                    "workflow": "removeFirst",
+                    "parameters": null
+                  }
+                ]
+              }
+            },
+            "classes": {},
+            "children": [
+              "removeText"
+            ]
+          },
+          "removeText": {
+            "type": "text",
+            "value": {
+              "type": "value",
+              "value": "Remove first"
+            }
+          }
+        }
+      }
+    }
+  }
+}

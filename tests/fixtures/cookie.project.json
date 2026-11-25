@@ -1,0 +1,168 @@
+{
+  "project": {
+    "name": "Cookie Demo",
+    "short_id": "cookie_demo"
+  },
+  "commit": "fixture",
+  "files": {
+    "components": {
+      "CookiePage": {
+        "name": "CookiePage",
+        "route": {
+          "path": [],
+          "query": {},
+          "info": {
+            "title": {
+              "formula": {
+                "type": "value",
+                "value": "Cookie Demo"
+              }
+            }
+          }
+        },
+        "nodes": {
+          "root": {
+            "type": "element",
+            "tag": "main",
+            "attrs": {},
+            "style": {
+              "min-height": "100vh",
+              "display": "flex",
+              "align-items": "center",
+              "justify-content": "center",
+              "background": "#f8fafc",
+              "font-family": "Inter, sans-serif"
+            },
+            "events": {},
+            "classes": {},
+            "children": ["demo"]
+          },
+          "demo": {
+            "type": "component",
+            "name": "CookieDemo",
+            "attrs": {},
+            "events": {},
+            "children": []
+          }
+        }
+      },
+      "CookieDemo": {
+        "name": "CookieDemo",
+        "workflows": {
+          "setCookie": {
+            "name": "Set cookie",
+            "parameters": [],
+            "actions": [
+              {
+                "type": "Custom",
+                "name": "@toddle/setHttpOnlyCookie",
+                "arguments": [
+                  {
+                    "name": "Name",
+                    "formula": {
+                      "type": "value",
+                      "value": "session"
+                    }
+                  },
+                  {
+                    "name": "Value",
+                    "formula": {
+                      "type": "value",
+                      "value": "secret"
+                    }
+                  },
+                  {
+                    "name": "Expires in",
+                    "formula": {
+                      "type": "value",
+                      "value": 3600
+                    }
+                  },
+                  {
+                    "name": "SameSite",
+                    "formula": {
+                      "type": "value",
+                      "value": "lax"
+                    }
+                  },
+                  {
+                    "name": "Path",
+                    "formula": {
+                      "type": "value",
+                      "value": "/"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "nodes": {
+          "root": {
+            "type": "element",
+            "tag": "section",
+            "attrs": {},
+            "style": {
+              "display": "flex",
+              "flex-direction": "column",
+              "align-items": "center",
+              "row-gap": "12px",
+              "padding-top": "24px",
+              "padding-left": "24px",
+              "padding-right": "24px",
+              "padding-bottom": "24px",
+              "border-radius": "16px",
+              "background": "#ffffff",
+              "border": "1px solid #e2e8f0"
+            },
+            "events": {},
+            "classes": {},
+            "children": ["button"]
+          },
+          "button": {
+            "type": "element",
+            "tag": "button",
+            "attrs": {
+              "type": {
+                "type": "value",
+                "value": "button"
+              }
+            },
+            "style": {
+              "padding-top": "8px",
+              "padding-left": "16px",
+              "padding-right": "16px",
+              "padding-bottom": "8px",
+              "border-radius": "8px",
+              "border": "none",
+              "background": "#2563eb",
+              "color": "#ffffff",
+              "cursor": "pointer"
+            },
+            "events": {
+              "click": {
+                "trigger": "click",
+                "actions": [
+                  {
+                    "type": "TriggerWorkflow",
+                    "workflow": "setCookie",
+                    "parameters": null
+                  }
+                ]
+              }
+            },
+            "classes": {},
+            "children": ["buttonText"]
+          },
+          "buttonText": {
+            "type": "text",
+            "value": {
+              "type": "value",
+              "value": "Set http-only cookie"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+name: Bug report
+description: Report a compiler bug or an incorrect generated app
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please remove private data from project exports before sharing. A minimal
+        fixture is much more useful than a full project export.
+  - type: input
+    id: version
+    attributes:
+      label: nordcraft2nuxt version
+      description: Output of `nordcraft2nuxt --version`, commit SHA, or package version.
+    validations:
+      required: true
+  - type: textarea
+    id: input
+    attributes:
+      label: Input shape
+      description: Which Nordcraft features are involved (formulas, workflows, APIs, packages, CSS, custom elements, etc.)?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction
+      description: Command used, expected result, actual result, and a minimal fixture if possible.
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Diagnostics and logs
+      description: Compiler diagnostics, generated file paths, browser console errors, and stack traces.
+      render: shell
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Node/Bun versions, Nuxt/Vue versions, browser.
+    validations:
+      required: true

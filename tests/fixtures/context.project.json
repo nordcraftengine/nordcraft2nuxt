@@ -1,0 +1,210 @@
+{
+  "project": {
+    "name": "Context Demo",
+    "short_id": "context_demo"
+  },
+  "commit": "fixture",
+  "files": {
+    "components": {
+      "ContextPage": {
+        "name": "ContextPage",
+        "route": {
+          "path": [],
+          "query": {},
+          "info": {
+            "title": {
+              "formula": {
+                "type": "value",
+                "value": "Context Demo"
+              }
+            }
+          }
+        },
+        "nodes": {
+          "root": {
+            "type": "element",
+            "tag": "main",
+            "attrs": {},
+            "style": {
+              "min-height": "100vh",
+              "display": "flex",
+              "align-items": "center",
+              "justify-content": "center",
+              "background": "#f8fafc",
+              "font-family": "Inter, sans-serif"
+            },
+            "events": {},
+            "classes": {},
+            "children": ["provider"]
+          },
+          "provider": {
+            "type": "component",
+            "name": "CounterProvider",
+            "attrs": {},
+            "events": {},
+            "children": []
+          }
+        }
+      },
+      "CounterProvider": {
+        "name": "CounterProvider",
+        "variables": {
+          "count": {
+            "initialValue": {
+              "type": "value",
+              "value": 0
+            }
+          }
+        },
+        "formulas": {
+          "countValue": {
+            "name": "countValue",
+            "exposeInContext": true,
+            "formula": {
+              "type": "path",
+              "path": ["Variables", "count"]
+            }
+          }
+        },
+        "workflows": {
+          "increase": {
+            "name": "Increase",
+            "parameters": [],
+            "exposeInContext": true,
+            "actions": [
+              {
+                "type": "SetVariable",
+                "variable": "count",
+                "data": {
+                  "type": "function",
+                  "name": "@toddle/add",
+                  "arguments": [
+                    {
+                      "name": "0",
+                      "formula": {
+                        "type": "path",
+                        "path": ["Variables", "count"]
+                      }
+                    },
+                    {
+                      "name": "1",
+                      "formula": {
+                        "type": "value",
+                        "value": 1
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "nodes": {
+          "root": {
+            "type": "element",
+            "tag": "section",
+            "attrs": {},
+            "style": {
+              "display": "flex",
+              "flex-direction": "column",
+              "row-gap": "12px",
+              "padding-top": "24px",
+              "padding-left": "24px",
+              "padding-right": "24px",
+              "padding-bottom": "24px",
+              "border-radius": "16px",
+              "background": "#ffffff",
+              "border": "1px solid #e2e8f0"
+            },
+            "events": {},
+            "classes": {},
+            "children": ["consumer"]
+          },
+          "consumer": {
+            "type": "component",
+            "name": "CounterConsumer",
+            "attrs": {},
+            "events": {},
+            "children": []
+          }
+        }
+      },
+      "CounterConsumer": {
+        "name": "CounterConsumer",
+        "contexts": {
+          "CounterProvider": {
+            "formulas": ["countValue"],
+            "workflows": ["increase"],
+            "componentName": "CounterProvider"
+          }
+        },
+        "nodes": {
+          "root": {
+            "type": "element",
+            "tag": "section",
+            "attrs": {},
+            "style": {
+              "display": "flex",
+              "flex-direction": "column",
+              "align-items": "center",
+              "row-gap": "12px"
+            },
+            "events": {},
+            "classes": {},
+            "children": ["value", "button"]
+          },
+          "value": {
+            "type": "text",
+            "value": {
+              "type": "path",
+              "path": ["Contexts", "CounterProvider", "countValue"]
+            }
+          },
+          "button": {
+            "type": "element",
+            "tag": "button",
+            "attrs": {
+              "type": {
+                "type": "value",
+                "value": "button"
+              }
+            },
+            "style": {
+              "padding-top": "8px",
+              "padding-left": "16px",
+              "padding-right": "16px",
+              "padding-bottom": "8px",
+              "border-radius": "8px",
+              "border": "none",
+              "background": "#2563eb",
+              "color": "#ffffff",
+              "cursor": "pointer"
+            },
+            "events": {
+              "click": {
+                "trigger": "click",
+                "actions": [
+                  {
+                    "type": "TriggerWorkflow",
+                    "workflow": "increase",
+                    "parameters": null,
+                    "contextProvider": "CounterProvider"
+                  }
+                ]
+              }
+            },
+            "classes": {},
+            "children": ["buttonText"]
+          },
+          "buttonText": {
+            "type": "text",
+            "value": {
+              "type": "value",
+              "value": "Increase via context"
+            }
+          }
+        }
+      }
+    }
+  }
+}

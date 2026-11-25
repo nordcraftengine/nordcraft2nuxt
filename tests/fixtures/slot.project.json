@@ -1,0 +1,169 @@
+{
+  "project": {
+    "name": "Slot Demo",
+    "short_id": "slot_demo"
+  },
+  "commit": "fixture",
+  "files": {
+    "components": {
+      "SlotPage": {
+        "name": "SlotPage",
+        "route": {
+          "path": [],
+          "query": {},
+          "info": {
+            "title": {
+              "formula": {
+                "type": "value",
+                "value": "Slot Demo"
+              }
+            }
+          }
+        },
+        "nodes": {
+          "root": {
+            "type": "element",
+            "tag": "main",
+            "attrs": {},
+            "style": {
+              "min-height": "100vh",
+              "display": "flex",
+              "align-items": "center",
+              "justify-content": "center",
+              "background": "#f8fafc",
+              "font-family": "Inter, sans-serif"
+            },
+            "events": {},
+            "classes": {},
+            "children": [
+              "card"
+            ]
+          },
+          "card": {
+            "type": "component",
+            "name": "Card",
+            "attrs": {},
+            "events": {},
+            "children": [
+              "headerText",
+              "bodyText"
+            ]
+          },
+          "headerText": {
+            "type": "text",
+            "slot": "header",
+            "value": {
+              "type": "value",
+              "value": "Slot header"
+            }
+          },
+          "bodyText": {
+            "type": "text",
+            "value": {
+              "type": "value",
+              "value": "Slot body"
+            }
+          }
+        }
+      },
+      "Card": {
+        "name": "Card",
+        "nodes": {
+          "root": {
+            "type": "element",
+            "tag": "section",
+            "attrs": {},
+            "style": {
+              "display": "flex",
+              "flex-direction": "column",
+              "row-gap": "8px",
+              "padding-top": "24px",
+              "padding-left": "24px",
+              "padding-right": "24px",
+              "padding-bottom": "24px",
+              "border-radius": "16px",
+              "background": "#ffffff",
+              "border": "1px solid #e2e8f0"
+            },
+            "events": {},
+            "classes": {
+              "test-style": {}
+            },
+            "children": [
+              "headerSlot",
+              "bodySlot",
+              "styleNode",
+              "scriptNode"
+            ]
+          },
+          "headerSlot": {
+            "type": "slot",
+            "name": "header",
+            "children": [
+              "headerFallback"
+            ]
+          },
+          "headerFallback": {
+            "type": "text",
+            "value": {
+              "type": "value",
+              "value": "Fallback header"
+            }
+          },
+          "bodySlot": {
+            "type": "slot",
+            "children": [
+              "bodyFallback"
+            ]
+          },
+          "bodyFallback": {
+            "type": "text",
+            "value": {
+              "type": "value",
+              "value": "Fallback body"
+            }
+          },
+          "styleNode": {
+            "type": "element",
+            "tag": "style",
+            "children": [
+              "styleText"
+            ],
+            "attrs": {},
+            "events": {},
+            "classes": {}
+          },
+          "styleText": {
+            "type": "text",
+            "value": {
+              "type": "value",
+              "value": ".test-style { color: rgb(1, 2, 3); }"
+            }
+          },
+          "scriptNode": {
+            "type": "element",
+            "tag": "script",
+            "children": [
+              "scriptText"
+            ],
+            "attrs": {
+              "type": {
+                "type": "value",
+                "value": "text/javascript"
+              }
+            },
+            "events": {},
+            "classes": {}
+          },
+          "scriptText": {
+            "type": "text",
+            "value": {
+              "type": "value",
+              "value": "window.__ncScript = 'ok'"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "name": "nordcraft2nuxt",
+  "version": "0.1.0",
+  "description": "Compile Nordcraft project JSON exports into standalone Nuxt 4 + Vue 3 TypeScript apps",
+  "license": "MIT",
+  "author": "Nordcraft",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "nordcraft2nuxt": "./dist/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nordcraftengine/nordcraft2nuxt.git"
+  },
+  "homepage": "https://github.com/nordcraftengine/nordcraft2nuxt#readme",
+  "bugs": {
+    "url": "https://github.com/nordcraftengine/nordcraft2nuxt/issues"
+  },
+  "keywords": [
+    "nordcraft",
+    "nuxt",
+    "vue",
+    "compiler",
+    "codegen",
+    "typescript",
+    "website-builder"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "bun@1.3.5",
+  "scripts": {
+    "dev": "tsx src/cli.ts",
+    "build": "tsc -p tsconfig.build.json && node scripts/copy-runtime.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "bun run build && node scripts/e2e.mjs",
+    "prepublishOnly": "bun run typecheck && bun run test && bun run build"
+  },
+  "dependencies": {
+    "prettier": "^3.10.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.7",
+    "playwright-core": "^1.65.1",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.1"
+  },
+  "files": [
+    "dist",
+    "NOTICE.md"
+  ]
+}

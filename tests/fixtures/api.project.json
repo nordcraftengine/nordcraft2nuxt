@@ -1,0 +1,265 @@
+{
+  "project": {
+    "name": "API Demo",
+    "short_id": "api_demo"
+  },
+  "commit": "fixture",
+  "files": {
+    "components": {
+      "ApiPage": {
+        "name": "ApiPage",
+        "route": {
+          "path": [],
+          "query": {},
+          "info": {
+            "title": {
+              "formula": {
+                "type": "value",
+                "value": "API Demo"
+              }
+            }
+          }
+        },
+        "nodes": {
+          "root": {
+            "type": "element",
+            "tag": "main",
+            "attrs": {},
+            "style": {
+              "min-height": "100vh",
+              "display": "flex",
+              "align-items": "center",
+              "justify-content": "center",
+              "background": "#f8fafc",
+              "font-family": "Inter, sans-serif"
+            },
+            "events": {},
+            "classes": {},
+            "children": [
+              "demo"
+            ]
+          },
+          "demo": {
+            "type": "component",
+            "name": "ApiDemo",
+            "attrs": {},
+            "events": {},
+            "children": []
+          }
+        }
+      },
+      "ApiDemo": {
+        "name": "ApiDemo",
+        "apis": {
+          "Greeting": {
+            "version": 2,
+            "name": "Greeting",
+            "type": "http",
+            "method": "GET",
+            "url": "http://localhost:4210/hello",
+            "autoFetch": true,
+            "inputs": {},
+            "path": {},
+            "queryParams": {},
+            "headers": {},
+            "client": {
+              "parserMode": "json",
+              "credentials": "omit",
+              "onCompleted": {
+                "trigger": "completed",
+                "actions": [
+                  {
+                    "type": "SetVariable",
+                    "variable": "status",
+                    "data": {
+                      "type": "value",
+                      "value": "done"
+                    }
+                  }
+                ]
+              }
+            },
+            "server": {
+              "ssr": {
+                "enabled": false
+              },
+              "proxy": {
+                "enabled": {
+                  "formula": {
+                    "type": "value",
+                    "value": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "workflows": {
+          "refetch": {
+            "name": "Refetch",
+            "parameters": [],
+            "actions": [
+              {
+                "type": "Fetch",
+                "api": "Greeting",
+                "inputs": {}
+              }
+            ]
+          }
+        },
+        "nodes": {
+          "root": {
+            "type": "element",
+            "tag": "section",
+            "attrs": {},
+            "style": {
+              "display": "flex",
+              "flex-direction": "column",
+              "row-gap": "12px",
+              "padding-top": "24px",
+              "padding-left": "24px",
+              "padding-right": "24px",
+              "padding-bottom": "24px",
+              "border-radius": "16px",
+              "background": "#ffffff",
+              "border": "1px solid #e2e8f0"
+            },
+            "events": {},
+            "classes": {},
+            "children": [
+              "loading",
+              "value",
+              "status",
+              "button"
+            ]
+          },
+          "loading": {
+            "type": "element",
+            "tag": "p",
+            "condition": {
+              "type": "path",
+              "path": [
+                "Apis",
+                "Greeting",
+                "isLoading"
+              ]
+            },
+            "attrs": {},
+            "style": {
+              "margin": "0",
+              "color": "#64748b"
+            },
+            "events": {},
+            "classes": {},
+            "children": [
+              "loadingText"
+            ]
+          },
+          "loadingText": {
+            "type": "text",
+            "value": {
+              "type": "value",
+              "value": "Loading..."
+            }
+          },
+          "value": {
+            "type": "text",
+            "value": {
+              "type": "path",
+              "path": [
+                "Apis",
+                "Greeting",
+                "data",
+                "message"
+              ]
+            }
+          },
+          "button": {
+            "type": "element",
+            "tag": "button",
+            "attrs": {
+              "type": {
+                "type": "value",
+                "value": "button"
+              }
+            },
+            "style": {
+              "padding-top": "8px",
+              "padding-left": "16px",
+              "padding-right": "16px",
+              "padding-bottom": "8px",
+              "border-radius": "8px",
+              "border": "none",
+              "background": "#2563eb",
+              "color": "#ffffff",
+              "cursor": "pointer"
+            },
+            "events": {
+              "click": {
+                "trigger": "click",
+                "actions": [
+                  {
+                    "type": "TriggerWorkflow",
+                    "workflow": "refetch",
+                    "parameters": null
+                  }
+                ]
+              }
+            },
+            "classes": {},
+            "children": [
+              "buttonText"
+            ]
+          },
+          "buttonText": {
+            "type": "text",
+            "value": {
+              "type": "value",
+              "value": "Refetch"
+            }
+          },
+          "status": {
+            "type": "element",
+            "tag": "p",
+            "attrs": {},
+            "style": {
+              "margin": "0",
+              "color": "#0f172a"
+            },
+            "events": {},
+            "classes": {},
+            "children": [
+              "statusLabel",
+              "statusValue"
+            ]
+          },
+          "statusLabel": {
+            "type": "text",
+            "value": {
+              "type": "value",
+              "value": "Status: "
+            }
+          },
+          "statusValue": {
+            "type": "text",
+            "value": {
+              "type": "path",
+              "path": [
+                "Variables",
+                "status"
+              ]
+            }
+          }
+        },
+        "variables": {
+          "status": {
+            "initialValue": {
+              "type": "value",
+              "value": ""
+            }
+          }
+        }
+      }
+    }
+  }
+}

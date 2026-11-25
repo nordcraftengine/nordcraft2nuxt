@@ -1,0 +1,23 @@
+name: Feature request
+description: Suggest Nordcraft feature coverage or a compiler improvement
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What Nordcraft feature or workflow cannot be compiled correctly today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: What should the compiler or generated app do instead?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives and examples
+      description: Links, screenshots, minimal JSON excerpts, or related Nordcraft documentation.

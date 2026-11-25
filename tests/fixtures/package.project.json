@@ -1,0 +1,256 @@
+{
+  "project": {
+    "name": "Package Demo",
+    "short_id": "package_demo"
+  },
+  "commit": "fixture",
+  "files": {
+    "packages": {
+      "demo_pkg": {
+        "manifest": {
+          "name": "demo_pkg"
+        },
+        "formulas": {
+          "double": {
+            "name": "double",
+            "formula": {
+              "type": "function",
+              "name": "@toddle/multiply",
+              "arguments": [
+                {
+                  "name": "0",
+                  "formula": {
+                    "type": "path",
+                    "path": ["Args", "value"]
+                  }
+                },
+                {
+                  "name": "1",
+                  "formula": {
+                    "type": "value",
+                    "value": 2
+                  }
+                }
+              ]
+            },
+            "arguments": [
+              {
+                "name": "value",
+                "formula": null
+              }
+            ]
+          }
+        },
+        "actions": {
+          "notify": {
+            "name": "notify",
+            "version": 2,
+            "handler": "function notify(args, ctx) {\n  ctx.triggerActionEvent('done', { value: Number(args.value) + 10 })\n}"
+          }
+        },
+        "components": {}
+      }
+    },
+    "components": {
+      "PackagePage": {
+        "name": "PackagePage",
+        "route": {
+          "path": [],
+          "query": {},
+          "info": {
+            "title": {
+              "formula": {
+                "type": "value",
+                "value": "Package Demo"
+              }
+            }
+          }
+        },
+        "nodes": {
+          "root": {
+            "type": "element",
+            "tag": "main",
+            "attrs": {},
+            "style": {
+              "min-height": "100vh",
+              "display": "flex",
+              "align-items": "center",
+              "justify-content": "center",
+              "background": "#f8fafc",
+              "font-family": "Inter, sans-serif"
+            },
+            "events": {},
+            "classes": {},
+            "children": ["demo"]
+          },
+          "demo": {
+            "type": "component",
+            "name": "PackageDemo",
+            "attrs": {},
+            "events": {},
+            "children": []
+          }
+        }
+      },
+      "PackageDemo": {
+        "name": "PackageDemo",
+        "variables": {
+          "count": {
+            "initialValue": {
+              "type": "value",
+              "value": 1
+            }
+          }
+        },
+        "workflows": {
+          "run": {
+            "name": "Run",
+            "parameters": [],
+            "actions": [
+              {
+                "type": "Custom",
+                "name": "notify",
+                "package": "demo_pkg",
+                "arguments": [
+                  {
+                    "name": "value",
+                    "formula": {
+                      "type": "path",
+                      "path": ["Variables", "count"]
+                    }
+                  }
+                ],
+                "events": {
+                  "done": {
+                    "actions": [
+                      {
+                        "type": "SetVariable",
+                        "variable": "count",
+                        "data": {
+                          "type": "path",
+                          "path": ["Event", "value"]
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "nodes": {
+          "root": {
+            "type": "element",
+            "tag": "section",
+            "attrs": {},
+            "style": {
+              "display": "flex",
+              "flex-direction": "column",
+              "align-items": "center",
+              "row-gap": "12px",
+              "padding-top": "24px",
+              "padding-left": "24px",
+              "padding-right": "24px",
+              "padding-bottom": "24px",
+              "border-radius": "16px",
+              "background": "#ffffff",
+              "border": "1px solid #e2e8f0"
+            },
+            "events": {},
+            "classes": {},
+            "children": ["count", "doubled", "button"]
+          },
+          "count": {
+            "type": "element",
+            "tag": "p",
+            "attrs": {},
+            "style": {
+              "margin": "0"
+            },
+            "events": {},
+            "classes": {},
+            "children": ["countText"]
+          },
+          "countText": {
+            "type": "text",
+            "value": {
+              "type": "path",
+              "path": ["Variables", "count"]
+            }
+          },
+          "doubled": {
+            "type": "element",
+            "tag": "p",
+            "attrs": {},
+            "style": {
+              "margin": "0",
+              "color": "#64748b"
+            },
+            "events": {},
+            "classes": {},
+            "children": ["doubledText"]
+          },
+          "doubledText": {
+            "type": "text",
+            "value": {
+              "type": "function",
+              "name": "double",
+              "package": "demo_pkg",
+              "arguments": [
+                {
+                  "name": "value",
+                  "formula": {
+                    "type": "path",
+                    "path": ["Variables", "count"]
+                  }
+                }
+              ]
+            }
+          },
+          "button": {
+            "type": "element",
+            "tag": "button",
+            "attrs": {
+              "type": {
+                "type": "value",
+                "value": "button"
+              }
+            },
+            "style": {
+              "padding-top": "8px",
+              "padding-left": "16px",
+              "padding-right": "16px",
+              "padding-bottom": "8px",
+              "border-radius": "8px",
+              "border": "none",
+              "background": "#2563eb",
+              "color": "#ffffff",
+              "cursor": "pointer"
+            },
+            "events": {
+              "click": {
+                "trigger": "click",
+                "actions": [
+                  {
+                    "type": "TriggerWorkflow",
+                    "workflow": "run",
+                    "parameters": null
+                  }
+                ]
+              }
+            },
+            "classes": {},
+            "children": ["buttonText"]
+          },
+          "buttonText": {
+            "type": "text",
+            "value": {
+              "type": "value",
+              "value": "Run package action"
+            }
+          }
+        }
+      }
+    }
+  }
+}
