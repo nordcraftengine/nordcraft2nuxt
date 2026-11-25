@@ -94,7 +94,8 @@ written unformatted.
    `bun run build`.
 3. Verify the CI workflow is green.
 4. Commit, tag (`git tag -s vX.Y.Z`), and push the tag.
-5. Publish with `npm publish` when appropriate.
+5. Create a GitHub release. This project is distributed from GitHub only and is
+   not published to npm.
 
 ## Repository hygiene
 

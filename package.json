@@ -1,6 +1,7 @@
 {
   "name": "nordcraft2nuxt",
   "version": "0.1.0",
+  "private": true,
   "description": "Compile Nordcraft project JSON exports into standalone Nuxt 4 + Vue 3 TypeScript apps",
   "license": "MIT",
   "author": "Nordcraft",
@@ -43,8 +44,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "bun run build && node scripts/e2e.mjs",
-    "prepublishOnly": "bun run typecheck && bun run test && bun run build"
+    "test:e2e": "bun run build && node scripts/e2e.mjs"
   },
   "dependencies": {
     "prettier": "^3.10.1"

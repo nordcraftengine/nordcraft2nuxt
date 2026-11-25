@@ -18,6 +18,8 @@ AST interpreter.
 > **Input:** the JSON **Download branch** export (`{ project, commit, files }`).
 > This compiler does not accept the `.nc` agent format.
 
+> **Distribution:** GitHub only. This project is not published to npm.
+
 ## Quick start
 
 Requirements: Node.js 20+ and Bun 1.3+ for development.

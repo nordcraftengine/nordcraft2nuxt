@@ -83,7 +83,8 @@ These are compatibility requirements, not preferences:
 3. Run `bun run build`.
 4. Confirm CI is green.
 5. Create a signed tag (`git tag -s vX.Y.Z`) and push it.
-6. Publish to npm with `npm publish` if a release is intended.
+6. Create a GitHub release. This project is distributed from GitHub only and is
+   not published to npm.
 
 ## Code of conduct
 

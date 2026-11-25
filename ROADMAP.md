@@ -136,7 +136,7 @@ feature coverage depends on the Nordcraft features a project uses. See
 - [x] Changelog and roadmap
 - [x] CI workflow (typecheck, unit/golden tests, build)
 - [x] Issue and pull-request templates
-- [ ] npm release
+- [x] GitHub-only distribution (not published to npm)
 - [ ] Hosted demo / example gallery
 - [ ] 1.0 compatibility commitment
 
